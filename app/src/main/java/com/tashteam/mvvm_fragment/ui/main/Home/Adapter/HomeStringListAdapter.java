@@ -4,15 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.tashteam.mvvm_fragment.R;
 import com.tashteam.mvvm_fragment.ui.main.Home.Model.ProductModel;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class HomeStringListAdapter  extends RecyclerView.Adapter<HomeStringListAdapter.ViewHolder> {
@@ -39,6 +44,10 @@ public class HomeStringListAdapter  extends RecyclerView.Adapter<HomeStringListA
     @Override
     public void onBindViewHolder(@NonNull HomeStringListAdapter.ViewHolder holder, int position) {
         holder.stringTextView.setText(stringList.get(position).getTitle());
+        Glide.with(context)
+                .load(stringList.get(position).getImage())
+                .apply(RequestOptions.centerCropTransform())
+                .into(holder.mainImage);
     }
 
     @Override
@@ -54,8 +63,10 @@ public class HomeStringListAdapter  extends RecyclerView.Adapter<HomeStringListA
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView stringTextView;
+        private CircleImageView mainImage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            mainImage = itemView.findViewById(R.id.profile_image);
             stringTextView = itemView.findViewById(R.id.listNameTextView);
         }
     }

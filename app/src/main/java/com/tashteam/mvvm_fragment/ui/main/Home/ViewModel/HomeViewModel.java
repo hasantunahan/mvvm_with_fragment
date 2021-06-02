@@ -27,5 +27,4 @@ public class HomeViewModel extends ViewModel {
         dataList = apiCall.callProductAPI();
     }
 
-
 }
